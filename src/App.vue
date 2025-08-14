@@ -100,7 +100,7 @@ const svg_content = computed(() => {
       /*stroke=*/'gray',
       /*thickness=*/0.3,
     ),
-  ].join('')
+  ]
 })
 
 let last_timestamp = 0
@@ -119,7 +119,14 @@ update(0)
   <h1>Polarization Ellipse</h1>
   <div>
     <input type="number" name="" id="" v-model="view_width">
-    <svg :viewBox="viewBox" v-html="svg_content">
+    <svg :viewBox="viewBox">
+      <template v-for="element, i in svg_content" :key="i">
+        <path v-if="element.tag == 'path'"
+              :d="element.d"
+              :stroke="element.stroke"
+              :stroke-width="element.thickness"
+              :fill="element.fill"></path>
+      </template>
     </svg>
   </div>
 </template>

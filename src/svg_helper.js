@@ -1,6 +1,17 @@
+function nf(num) {
+    return num.toFixed(3)
+}
+
 function line(x1, y1, x2, y2, stroke = '#000000', thickness = 1) {
-    const d = `M${x1},${y1} L${x2},${y2}`;
-    return `<path d="${d}" stroke="${stroke}" stroke-width="${thickness}" fill="none"></path>`;
+    const d = `M${nf(x1)},${nf(y1)} L${nf(x2)},${nf(y2)}`;
+    return {
+        tag: 'path',
+        d: d,
+        stroke: stroke,
+        thickness: thickness,
+        fill: 'none'
+    }
+    // return `<path d="${d}" stroke="${stroke}" stroke-width="${thickness}" fill="none"></path>`;
 }
 
 function plot(x_arr, y_arr, stroke = '#000000', fill = 'none', thickness = 1) {
@@ -9,9 +20,16 @@ function plot(x_arr, y_arr, stroke = '#000000', fill = 'none', thickness = 1) {
     for (let i = 0; i < x_arr.length; i++) {
         const x = x_arr[i]
         const y = y_arr[i]
-        d.push((i == 0 ? "M" : "L") + `${x},${y}`)
+        d.push((i == 0 ? "M" : "L") + `${nf(x)},${nf(y)}`)
     }
-    return `<path d="${d.join(' ')}" stroke="${stroke}" stroke-width="${thickness}" fill="${fill}"></path>`;
+    return {
+        tag: 'path',
+        d: d.join(' '),
+        stroke: stroke,
+        thickness: thickness,
+        fill: fill
+    }
+    // return `<path d="${d.join(' ')}" stroke="${stroke}" stroke-width="${thickness}" fill="${fill}"></path>`;
 }
 
 export {
